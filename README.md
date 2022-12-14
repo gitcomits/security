@@ -61,7 +61,7 @@ and also remove the `<!--` and `-->` from `home.html` to put in practice the CSF
 [Flaw 3](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L57)
 
 The *Cryptographic Failures* include non-encrypted data exposure. 
-In the case of this app the inserted password data visible when inserting this, after that it is saved without encryption and then still it is shown in clear form on the page.   
+In the case of this app the inserted password data is visible when inserting it (Flaw 1), after that it is saved without encryption (Flaw 2) and then still it is shown in clear form on the page (Flaw 3).   
 
 
 [Fix 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L40)
@@ -97,25 +97,74 @@ To fix this, one needs to remove the `{% autoescape off %}` and `{% endautoescap
 
 ### Insecure Design (A04:2021)
 
-[Flaw 1]
-[Flaw 2]
-[Flaw 3]
-[Flaw 4]
+[Flaw 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L31)
+[Flaw 2](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L36)
+[Flaw 3](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L41)
+[Flaw 4](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L48)
 
 Part of insecure design is flaws found in the application design. These can lead to unwanted data exposure, misuse off the application and extremely bad user experiences. In the application in question there are several design flaws: 
 
 - no feedback if the form was saved or not
-- no encryption of password on the form
-- no validation of the data in the fields
+- no hashing of password on the form 
+- no validation of the data in the fields (Flaw 1 - 3)
 - in the case of no save the valid data is erased from the form
+- showing too much data (Flaw 4)
+
+Feedback can be given by adding information if the submitting was succesfull. To do this remove the `<!--` and `-->` from home.html
+
+[Fix feedback 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L6)
+
+[Fix feedback 2](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L15)
+
+The password hashing can be fixed by changing the field type to `password` 
+
+[Fix hashing](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L40))
+
+Validating the two other fields is done in similar manner, giving the age field type `number` and the email field type `email`.
+
+[Fix 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L30)
+[Fix 2](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L35)
+
+For the data to remain in the form fields even the save would not be successfull they need to be replaced when page reloads. 
+For this to be done both the `views.py` and the `home.html` needs to be edited. 
+
+From the `views.py` uncomment both lines 20 and 21
+
+[Fix fields 1](https://github.com/gitcomits/security/blob/main/secure/views.py#L20)
+[Fix fields 2](https://github.com/gitcomits/security/blob/main/secure/views.py#L21)
+
+and comment line 23.
+
+[Fix fields 3](https://github.com/gitcomits/security/blob/main/secure/views.py#L23)
+
+Then in `home.html` uncomment the four value lines. 
+
+[Fix values 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L23)
+
+[Fix values 2](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L27)
+
+[Fix values 3](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L32)
+
+[Fix values 4](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L37)
+
+Do not forget to remove, the now redundant `>` sign from the previous line ends (i.e. lines 22, 26, 31, 36)
+
+Not to show the previously data the `home.html` needs to further be edited.
+Remove or comment starting from line 48 to and including line 59
+
+[Fix 4](https://github.com/gitcomits/security/blob/main/s#L48ecure/templates/home.html#L48)
 
 
+### Security Logging and Monitoring Failures (A09:2021)
 
+Logging is an important part security. It helps to find both errors and intruders in the system, but only if the logs are monitored.
 
+By default loggin is not turned on in Django. To do this one needs to create a configuration for loggin  in `settings.py` file.
+There are several levels of logging in Django and for this example i have chosen the `DEBUG` level. 
 
+The configuration is already in place (`settings.py` from line 129 forward), the only thing to activate it is to comment line 127 in the `settings.py` to activate it.
 
-
-
+[Fix loggin](https://github.com/gitcomits/security/blob/main/course/settings.py#L127)
 
 
 
