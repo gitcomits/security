@@ -52,10 +52,32 @@ and also remove the `<!--` and `-->` from `home.html` to put in practice the CSF
 `https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L20`
 
 
+### Cryptographic Failures (A02:2021)
+
+[Flaw 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L41)
+
+[Flaw 2](https://github.com/gitcomits/security/blob/main/secure/views.py#L11)
+
+[Flaw 3](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L57)
+
+The *Cryptographic Failures* include non-encrypted data exposure. 
+In the case of this app the inserted password data visible when inserting this, after that it is saved without encryption and then still it is shown in clear form on the page.   
 
 
+[Fix 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L40)
 
+The fixes for these flaws would be to change the `input type=text` to `input type=password' in the `home.html` file. This would prevent anybody from seeing the password when typing it in. 
 
+Fix 2
+
+Now the password is saved in plain text and it would need to be hashed. This could be achieved for example by using a hashing library like `passlib`. 
+And then with the help of the library to hash the password before saving it
+To install the library - `pip install passlib`
+The hashing - `hashed_passwd = pbkdf2_sha256.encrypt(passwd, rounds=12000, salt_size=32)`
+
+[Fix 3](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L57)
+
+It is against good practises to show passwords, to prevent this the line doing this should be commented or removed from `home.html` file.
 
 
 
