@@ -199,7 +199,7 @@ The configuration is already in place (`settings.py` from line 129 forward), the
 [Fix loggin](https://github.com/gitcomits/security/blob/main/course/settings.py#L127)
 `https://github.com/gitcomits/security/blob/main/course/settings.py#L127`
 
-== REQUIRES SERVER RESTART ==
+**Requires Server Restart**
 
 A new file named `secureapp.log` will be created for the log 
 
