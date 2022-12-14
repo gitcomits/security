@@ -17,6 +17,9 @@ def home(request):
             email = request.POST['email']
             age = request.POST['age']
             messages.success(request, ('Info not valid'))
+            #return render(request, 'home.html', {'all':all_db, 
+            #'fname': fname, 'lname': lname, 'email': email, 'age': age})
+            
             return render(request, 'home.html', {'all':all_db})
 
     return render(request, 'home.html', {'all':all_db})
