@@ -80,7 +80,21 @@ The hashing - `hashed_passwd = pbkdf2_sha256.encrypt(passwd, rounds=12000, salt_
 It is against good practises to show passwords, to prevent this the line doing this should be commented or removed from `home.html` file.
 
 
+### Injection (A03:2021)
+
+[Flaw](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L51)
+
+This flaw includes exposure to un-sanitized data provided by a end-user. This can lead to very unwanted situations if the browser validates the data in non-wanted manner. This could lead to temporary or permanent data loss, or in a milder situation to a bad user experience. By defaiöt escaping special characters is turned on in Django but they can be turned of as well. 
+For visual purposes you can enter `Hello &lt;i>my&lt;/i> World!` in the `First Name` and `Last Name` fields to see the differences.
 
 
+To fix this, one needs to remove the `{% autoescape off %}` and `{% endautoescape %}` parts from the `home.html` file.
+
+[Fix 1](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L51)
+
+[Fix 2](https://github.com/gitcomits/security/blob/main/secure/templates/home.html#L52)
+
+
+### Insecure Design (A04:2021)
 
 
