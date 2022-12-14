@@ -97,4 +97,25 @@ To fix this, one needs to remove the `{% autoescape off %}` and `{% endautoescap
 
 ### Insecure Design (A04:2021)
 
+[Flaw 1]
+[Flaw 2]
+[Flaw 3]
+[Flaw 4]
+
+Part of insecure design is flaws found in the application design. These can lead to unwanted data exposure, misuse off the application and extremely bad user experiences. In the application in question there are several design flaws: 
+
+- no feedback if the form was saved or not
+- no encryption of password on the form
+- no validation of the data in the fields
+- in the case of no save the valid data is erased from the form
+
+
+
+
+
+
+
+
+
+
 
