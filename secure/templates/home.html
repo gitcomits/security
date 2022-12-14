@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Enter your info</h1>
+
+<!--
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+-->
+
+<br/> <br/>   
+<form method="POST" action="{% url 'home' %}">
+<!--    cross site request forgery token 
+    {% csrf_token %}  --> 
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="First Name" name="fname">
+    <!--    value={{ fname }}>  -->
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Last Name" name="lname">
+    <!--    value={{ lname }}> -->
+    </div>
+    <div class="mb-3">
+        <!--<input type="number" -->
+        <input type="text" class="form-control" placeholder="Age" name="age">
+        <!--    value={{ age }}> -->
+    </div>
+    <div class="mb-3">
+        <!--<input type="email" -->
+        <input type="text" class="form-control" placeholder="Email Adress" name="email">
+        <!--    value={{ email }}> -->
+    </div>
+    <div class="mb-3">
+    <!--<input type="password"  -->
+        <input type="text" class="form-control" placeholder="Password" name="passwd">
+    </div>
+    <button type="submit" class="btn btn-primary">Give Info</button>
+  </form>
+
+<br/><br/>
+
+<h1> Everybodies info</h1>
+    {% for one in all%} 
+
+    {% autoescape off %}
+    <strong> {{ one.fname }} {% endautoescape %} {{ one.lname }} </strong> <br/>
+  
+
+    Email: {{ one.email }} <br/>
+    Age: {{ one.age }} <br/>
+    Password: {{ one.passwd }} <br/>
+    <br/><br/>
+    {% endfor %}
+    
+    {% endblock %}
